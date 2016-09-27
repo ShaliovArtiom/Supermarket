@@ -2,16 +2,18 @@ package shaliovartiom.supermarket.Model;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 
 import shaliovartiom.supermarket.View.GameView;
 
 public class Player {
-    GameView gameView;
-    Bitmap bmp;
+
+    private GameView gameView;
+    private Bitmap bmp;
 
     private int x;
     private int y;
-    private int speedX = 10;
+    private int speedX = 15;
     private int currentFrame = 250;
 
 
@@ -24,19 +26,19 @@ public class Player {
         this.y = 750;
     }
 
-    public void update() {
-        if(x > gameView.getWidth() - bmp.getWidth() - speedX) {
-            speedX = -10;
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getX() < 250) {
+            moveLeft();
         }
-        if(x + speedX < 0){
-            speedX = 10;
+        if (event.getX() > 250) {
+            moveRight();
         }
-        x = x + speedX;
+        return onTouchEvent(event);
     }
 
     public void moveLeft(){
-        if(x + speedX < 0){
-            x = speedX;
+        if(x <= 0){
+            x = 0;
         }else{
             speedX = - 10;
             x = x + speedX;
@@ -44,9 +46,8 @@ public class Player {
     }
 
     public void moveRight(){
-        if(x > gameView.getWidth() - bmp.getWidth() - speedX) {
-            speedX = -10;
-            x = x + speedX;
+        if(x >= gameView.getWidth() - bmp.getWidth() - speedX) {
+            x = gameView.getWidth() - bmp.getWidth() - speedX ;
         }else{
             speedX = 10;
             x = x + speedX;
@@ -56,6 +57,4 @@ public class Player {
     public void onDraw(Canvas canvas){
         canvas.drawBitmap(bmp, x, y, null);
     }
-
-
 }

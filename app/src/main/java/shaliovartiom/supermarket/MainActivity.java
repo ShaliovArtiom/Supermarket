@@ -7,7 +7,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import shaliovartiom.supermarket.View.GameView;
-import shaliovartiom.supermarket.View.GameView;
 
 public class MainActivity extends AppCompatActivity {
 
